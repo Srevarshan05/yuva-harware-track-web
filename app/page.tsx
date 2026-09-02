@@ -2,10 +2,11 @@
 
 import Image from "next/image";
 import Dither from "./components/Dither";
-import LaserFlow from "./components/LaserFlow";
 import { motion } from "framer-motion";
 import JetsonScrollCanvas from "./components/JetsonScrollCanvas";
 import PptScreeningSection from "./components/PptScreeningSection";
+import ScoringBreakdown from "./components/ScoringBreakdown";
+import JudgesCarouselSection from "./components/JudgesCarouselSection";
 
 const PARTNER_LOGOS = [
   { name: "YUVA", src: "/logos/yuva-badge.png" },
@@ -72,9 +73,9 @@ export default function Home() {
       </header>
 
       {/* ══════════════════════════════════════════════════════════════════════
-          PAGE 1: MAIN HERO SECTION
+          PAGE 1: MAIN HERO SECTION (FULL SCREEN)
       ══════════════════════════════════════════════════════════════════════ */}
-      <section className="relative z-30 flex flex-col items-center justify-center text-center px-6 max-w-4xl mx-auto pt-16 md:pt-24 pb-4 md:pb-6">
+      <section className="relative z-30 flex flex-col items-center justify-center text-center px-6 max-w-5xl mx-auto min-h-[calc(100vh-60px)] py-12">
         {/* Large Central YUVA Logo with Ambient Glow and Interactive Hover Effect */}
         <div className="relative mb-6 flex items-center justify-center">
           {/* Ambient Glow Aura */}
@@ -139,106 +140,40 @@ export default function Home() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
-          className="text-base md:text-xl text-white/70 max-w-2xl leading-relaxed mb-10 font-normal italic"
+          className="text-base md:text-xl text-white/70 max-w-2xl leading-relaxed font-normal italic"
         >
           "Hardware is built to run software, and software is developed to run
           efficiently on hardware. True innovation happens where they intersect."
         </motion.p>
-
-        {/* CTA Actions */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.3, ease: "easeOut" }}
-          className="flex flex-wrap gap-4 items-center justify-center"
-        >
-          <a
-            href="https://unstop.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-8 py-3.5 rounded-full text-sm font-semibold tracking-wide bg-white text-black hover:bg-white/90 transition-all duration-200 hover:scale-105 active:scale-95 shadow-lg shadow-white/15"
-          >
-            Register on Unstop
-          </a>
-
-          <a
-            href="#tracks-section"
-            className="px-8 py-3.5 rounded-full text-sm font-semibold tracking-wide bg-white/5 hover:bg-white/10 border border-white/15 text-white/80 transition-all duration-200 hover:scale-105 active:scale-95 backdrop-blur-sm"
-          >
-            Explore Tracks ↓
-          </a>
-        </motion.div>
       </section>
 
       {/* ══════════════════════════════════════════════════════════════════════
           JETSON SCROLL ANIMATION (between hero and tracks)
       ══════════════════════════════════════════════════════════════════════ */}
-      <div className="relative z-20 w-full -mt-6 sm:-mt-10 md:-mt-14" style={{ background: "#050505" }}>
+      <div className="relative z-20 w-full" style={{ background: "#050505" }}>
         <JetsonScrollCanvas />
       </div>
 
       {/* ══════════════════════════════════════════════════════════════════════
-          PAGE 2: PPT SCREENING INSTRUCTIONS (EXPANDABLE SCREEN)
+          PAGE 2: PPT SCREENING INSTRUCTIONS, SCORING & JUDGES
       ══════════════════════════════════════════════════════════════════════ */}
       <section
         id="tracks-section"
-        className="relative z-30 w-full min-h-screen flex flex-col items-center justify-center overflow-visible pointer-events-auto"
-        style={{
-          marginTop: "-100vh",
-          background:
-            "radial-gradient(ellipse 90% 70% at 50% 50%, rgba(5,5,5,0.95) 0%, rgba(5,5,5,0.7) 50%, transparent 100%)",
-        }}
+        className="relative z-30 w-full flex flex-col items-center justify-center overflow-visible pointer-events-auto"
       >
-        {/* Ambient atmospheric light blending into the dither canvas */}
-        <div
-          className="absolute inset-0 pointer-events-none -z-10"
-          style={{
-            background:
-              "radial-gradient(circle 600px at 50% 50%, rgba(99,102,241,0.06), transparent 70%)",
-          }}
-        />
-
         <PptScreeningSection />
+        <ScoringBreakdown />
+        <JudgesCarouselSection />
       </section>
 
-      {/* ── LaserFlow Footer Section (Smudged seamlessly with section above) ───── */}
-      <footer id="footer-flow" className="relative z-20 w-full overflow-hidden -mt-24 sm:-mt-32">
-        {/* Soft top gradient feather into the screening section */}
-        <div
-          className="absolute inset-x-0 top-0 h-32 pointer-events-none z-10"
-          style={{
-            background:
-              "linear-gradient(180deg, rgba(5,5,5,0.95) 0%, rgba(5,5,5,0.4) 60%, transparent 100%)",
-          }}
-        />
-
-        <div className="relative w-full h-80 sm:h-96 md:h-[28rem]">
-          <LaserFlow
-            color="#0f1f8e"
-            wispDensity={1}
-            flowSpeed={0.35}
-            verticalSizing={2}
-            horizontalSizing={1.1}
-            fogIntensity={0.45}
-            fogScale={0.3}
-            wispSpeed={15}
-            wispIntensity={5}
-            flowStrength={0.25}
-            decay={1.1}
-            horizontalBeamOffset={0}
-            verticalBeamOffset={-0.5}
-          />
-
-          {/* Footer content overlay */}
-          <div className="absolute inset-0 flex flex-col items-center justify-end pb-8 px-6 pointer-events-none z-10">
-            <span className="text-xs tracking-[0.25em] uppercase font-mono text-white/40 mb-1">
-              © 2026 IEEE SB · SRM IST TRICHY
-            </span>
-            <span className="text-[10px] text-white/25 font-mono tracking-widest uppercase">
-              Interact with cursor to distort energy beam
-            </span>
-          </div>
-        </div>
+      {/* ── Minimalist Clean Footer ───────────────────────────────────────── */}
+      <footer className="relative z-30 w-full py-16 px-6 flex flex-col items-center justify-center text-center">
+        <span className="text-xs tracking-[0.25em] uppercase font-mono text-white/40 mb-2">
+          © 2026 IEEE SB · SRM IST TRICHY
+        </span>
+        <span className="text-[10px] text-white/20 font-mono tracking-widest uppercase">
+          YUVA MEGATHON · HARDWARE TRACK
+        </span>
       </footer>
     </main>
   );
