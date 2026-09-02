@@ -3,10 +3,12 @@
 import Image from "next/image";
 import Dither from "./components/Dither";
 import { motion } from "framer-motion";
-import JetsonScrollCanvas from "./components/JetsonScrollCanvas";
+// import JetsonScrollCanvas from "./components/JetsonScrollCanvas"; // Temporarily removed
 import PptScreeningSection from "./components/PptScreeningSection";
 import ScoringBreakdown from "./components/ScoringBreakdown";
+import { MacbookScrollDemo } from "./components/MacbookScrollDemo";
 import JudgesCarouselSection from "./components/JudgesCarouselSection";
+import { RegisterAndFaqSection } from "./components/RegisterAndFaqSection";
 
 const PARTNER_LOGOS = [
   { name: "YUVA", src: "/logos/yuva-badge.png" },
@@ -147,39 +149,130 @@ export default function Home() {
         </motion.p>
       </section>
 
-      {/* ══════════════════════════════════════════════════════════════════════
-          JETSON SCROLL ANIMATION (between hero and tracks)
-      ══════════════════════════════════════════════════════════════════════ */}
-      <div className="relative z-20 w-full" style={{ background: "#050505" }}>
-        <JetsonScrollCanvas />
-      </div>
+      {/* ═══════════════════════════════════════════════════════════════════════
+          Wrapper — smooth blended dark backdrop across all post-hero sections.
+          Feathers seamlessly from the hero so there is no hard cutoff line,
+          and lets the animated dither stay subtly visible throughout.
+      ════════════════════════════════════════════════════════════════════════ */}
+      <div
+        className="relative z-20 w-full"
+        style={{
+          background:
+            "linear-gradient(to bottom, rgba(5,5,5,0) 0%, rgba(5,5,5,0.3) 180px, rgba(5,5,5,0.6) 360px, rgba(5,5,5,0.82) 550px, rgba(5,5,5,0.82) 100%)",
+        }}
+      >
+
 
       {/* ══════════════════════════════════════════════════════════════════════
           PAGE 2: PPT SCREENING INSTRUCTIONS, SCORING & JUDGES
       ══════════════════════════════════════════════════════════════════════ */}
       <section
         id="tracks-section"
-        className="relative z-30 w-full flex flex-col items-center justify-center overflow-visible pointer-events-auto"
+        className="relative w-full flex flex-col items-center justify-center overflow-visible pointer-events-auto"
       >
         <PptScreeningSection />
         <ScoringBreakdown />
+        <MacbookScrollDemo />
         <JudgesCarouselSection />
+        <RegisterAndFaqSection />
       </section>
 
-      {/* ── Minimalist Clean Footer ───────────────────────────────────────── */}
-      <footer className="relative z-30 w-full py-16 px-6 flex flex-col items-center justify-center text-center">
-        <span className="text-xs tracking-[0.25em] uppercase font-mono text-white/40 mb-2">
-          © 2026 IEEE SB · SRM IST TRICHY
-        </span>
-        <span className="text-[10px] text-white/20 font-mono tracking-widest uppercase">
-          YUVA MEGATHON · HARDWARE TRACK
-        </span>
+      {/* ── Rich Footer ──────────────────────────────────────────────────────── */}
+      <footer
+        className="relative w-full pt-16 pb-8 px-6 sm:px-10 lg:px-20"
+        style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}
+      >
+        <div className="max-w-7xl mx-auto">
+          {/* Top row */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 pb-12 border-b border-white/[0.06]">
+            {/* Brand column */}
+            <div className="flex flex-col gap-4">
+              <div className="flex items-center gap-2.5">
+                <Image
+                  src="/logos/ieee-srmist.jpg"
+                  alt="IEEE SB SRM IST"
+                  width={32}
+                  height={32}
+                  className="rounded-md object-contain"
+                />
+                <span className="text-white font-semibold text-sm tracking-tight">
+                  IEEE SB · SRM IST Trichy
+                </span>
+              </div>
+              <p className="text-white/45 text-xs leading-relaxed max-w-[220px]">
+                Organizing Yuva Megathon — a flagship Hardware Hackathon empowering student innovators.
+              </p>
+              {/* Social icons */}
+              <div className="flex items-center gap-3 mt-1">
+                {[
+                  { href: "https://instagram.com", label: "Instagram", d: "M7.75 2C4.57 2 2 4.57 2 7.75v8.5C2 19.43 4.57 22 7.75 22h8.5C19.43 22 22 19.43 22 16.25v-8.5C22 4.57 19.43 2 16.25 2h-8.5Zm0 1.5h8.5c2.9 0 4.75 1.85 4.75 4.75v8.5c0 2.9-1.85 4.75-4.75 4.75h-8.5c-2.9 0-4.75-1.85-4.75-4.75v-8.5c0-2.9 1.85-4.75 4.75-4.75ZM12 7a5 5 0 1 0 0 10A5 5 0 0 0 12 7Zm0 1.5a3.5 3.5 0 1 1 0 7 3.5 3.5 0 0 1 0-7Zm5.25-2.5a.875.875 0 1 0 0 1.75.875.875 0 0 0 0-1.75Z" },
+                  { href: "https://twitter.com", label: "Twitter/X", d: "M4 4h4l2.5 3.5L13 4h4l-4.5 5.5L21 20h-4l-3-4.5L11 20H7l5-6.5L4 4Zm2.5 1.5 5.25 6.5-.75 1 5.25 6H15l-4.5-6L8 14l-3.5-4.5.75-1L7 13.5 5 5.5h1.5Z" },
+                  { href: "https://linkedin.com", label: "LinkedIn", d: "M4.5 3A1.5 1.5 0 0 0 3 4.5v15A1.5 1.5 0 0 0 4.5 21h15a1.5 1.5 0 0 0 1.5-1.5v-15A1.5 1.5 0 0 0 19.5 3h-15Zm2 3.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM5 10h3v9H5v-9Zm5 0h2.75v1.25C13.25 10.5 14.25 10 15.5 10c2.5 0 3.5 1.5 3.5 4.25V19h-3v-4.5c0-1-.5-1.75-1.5-1.75s-1.5.75-1.5 1.75V19H11v-9Z" },
+                  { href: "https://youtube.com", label: "YouTube", d: "M12 4.5C7.5 4.5 4 5.5 4 5.5A2.5 2.5 0 0 0 2 8v8a2.5 2.5 0 0 0 2 2.5s3.5 1 8 1 8-1 8-1A2.5 2.5 0 0 0 22 16V8a2.5 2.5 0 0 0-2-2.5s-3.5-1-8-1Zm-2 4 5.5 3.5L10 15.5V8.5Z" },
+                ].map(({ href, label, d }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={label}
+                    className="w-8 h-8 rounded-md bg-white/5 hover:bg-white/12 flex items-center justify-center transition-colors"
+                  >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="white" opacity={0.6}>
+                      <path d={d} />
+                    </svg>
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            {/* Explore column */}
+            <div className="flex flex-col gap-3">
+              <p className="text-white/60 text-xs font-mono uppercase tracking-[0.2em] mb-1">Explore</p>
+              {[
+                { label: "Home", href: "#" },
+                { label: "Initial Screening", href: "#tracks-section" },
+                { label: "Evaluation Criteria", href: "#tracks-section" },
+                { label: "Judges Panel", href: "#tracks-section" },
+                { label: "FAQ", href: "#tracks-section" },
+              ].map(({ label, href }) => (
+                <a key={label} href={href} className="text-white/45 hover:text-white text-sm transition-colors">
+                  {label}
+                </a>
+              ))}
+            </div>
+
+            {/* Organised By column */}
+            <div className="flex flex-col gap-3">
+              <p className="text-white/60 text-xs font-mono uppercase tracking-[0.2em] mb-1">Organised By</p>
+              {[
+                { label: "IEEE SB SRM IST Trichy", href: "https://www.srmist.edu.in" },
+                { label: "YUVA — Technology Club", href: "#" },
+                { label: "STAR(T)ECH", href: "#" },
+                { label: "IET On Campus", href: "#" },
+                { label: "ACM Student Chapter", href: "#" },
+              ].map(({ label, href }) => (
+                <a key={label} href={href} target="_blank" rel="noopener noreferrer" className="text-white/45 hover:text-white text-sm transition-colors">
+                  {label}
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Bottom bar */}
+          <div className="pt-7 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <span className="text-[11px] font-mono text-white/25 tracking-widest uppercase">
+              © 2026 IEEE SB · SRM IST Trichy — YUVA Megathon · Hardware Track
+            </span>
+            <span className="text-[11px] font-mono text-white/20 tracking-widest uppercase">
+              All rights reserved.
+            </span>
+          </div>
+        </div>
       </footer>
+
+      </div>{/* end solid dark bg wrapper */}
     </main>
   );
 }
-
-
-
-
 

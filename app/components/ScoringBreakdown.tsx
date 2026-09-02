@@ -1,4 +1,4 @@
-﻿"use client"
+"use client"
 
 import { motion } from "framer-motion"
 
@@ -13,7 +13,8 @@ const CRITERIA = [
 
 export default function ScoringBreakdown() {
   return (
-    <section className="relative z-30 w-full px-6 sm:px-10 lg:px-20 py-24 sm:py-32 max-w-6xl mx-auto">
+    <section className="relative z-30 w-full px-6 sm:px-10 lg:px-20 pt-20 pb-8 sm:pt-28 sm:pb-12 max-w-6xl mx-auto">
+      {/* Section Header */}
       <motion.div
         initial={{ opacity: 0, y: 28 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -21,7 +22,7 @@ export default function ScoringBreakdown() {
         transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
         className="flex flex-col gap-3 mb-14 sm:mb-20"
       >
-        <p className="text-[11px] font-mono uppercase tracking-[0.22em] text-white/40">
+        <p className="text-[11px] font-mono uppercase tracking-[0.25em] text-indigo-300">
           Judging · Score Breakdown
         </p>
         <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-normal leading-[92%] tracking-[-0.03em] text-white">
@@ -29,6 +30,7 @@ export default function ScoringBreakdown() {
         </h2>
       </motion.div>
 
+      {/* Full Width Ruled List */}
       <div className="flex flex-col">
         {CRITERIA.map((item, idx) => (
           <motion.div
@@ -64,7 +66,7 @@ export default function ScoringBreakdown() {
         transition={{ duration: 0.6, delay: 0.45 }}
         className="flex justify-end mt-6"
       >
-        <span className="text-[11px] font-mono uppercase tracking-[0.22em] text-white/30">
+        <span className="text-[11px] font-mono uppercase tracking-[0.25em] text-white/30">
           Total · 100%
         </span>
       </motion.div>

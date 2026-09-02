@@ -15,22 +15,32 @@ export default function PptScreeningSection() {
       contentRadius="24px"
     >
       {/* ── Collapsed View with Scroll Animation ─────────────────────────── */}
-      <div className="relative flex min-h-screen w-full flex-col items-center justify-center px-4 sm:px-6 py-20 sm:py-28" style={{ background: "#050505" }}>
+      <div
+        className="relative flex min-h-screen flex-col items-center justify-center px-4 sm:px-6 py-16 sm:py-24 w-full bg-transparent"
+      >
+        {/* Ambient glow */}
+        <div
+          className="absolute inset-0 pointer-events-none -z-10"
+          style={{
+            background:
+              "radial-gradient(circle 600px at 50% 50%, rgba(99,102,241,0.06), transparent 70%)",
+          }}
+        />
+
         <motion.div
           initial={{ opacity: 0, y: 45 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, amount: 0.25 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="relative z-10 flex flex-col items-center gap-6 sm:gap-8 text-center max-w-4xl mx-auto"
+          className="relative z-10 flex flex-col items-center gap-6 sm:gap-8 text-center max-w-3xl mx-auto"
         >
-
           {/* Heading */}
           <motion.h1
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false }}
             transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-normal leading-[92%] tracking-[-0.03em] text-foreground"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-normal leading-[92%] tracking-[-0.03em] text-foreground mix-blend-exclusion"
           >
             Initial Screening Round
           </motion.h1>
@@ -41,7 +51,7 @@ export default function PptScreeningSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false }}
             transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="text-base sm:text-lg md:text-xl leading-[160%] text-foreground/80 max-w-2xl px-2"
+            className="text-base sm:text-lg md:text-xl leading-[160%] text-foreground/80 max-w-2xl px-4"
           >
             All registered participants must submit a PPT for their given usecase.
             Evaluation will be strictly based on PPT Design, Quality, Problem Understanding,
