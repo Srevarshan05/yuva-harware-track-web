@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useCallback } from "react";
-import { useScroll, useSpring } from "framer-motion";
+import { useScroll, useSpring, useTransform, motion } from "framer-motion";
 
 /* ─── Configuration with Transparent RGBA Frames ────────────────────────────── */
 const TOTAL_FRAMES = 180;
@@ -36,6 +36,19 @@ export default function JetsonScrollCanvas() {
     damping: 38,
     restDelta: 0.0005,
   });
+
+  // Scroll reveal animation for the "Did you know?" narrative callout in left negative space
+  const didYouKnowOpacity = useTransform(
+    smoothProgress,
+    [0.06, 0.20, 0.82, 0.94],
+    [0, 1, 1, 0]
+  );
+
+  const didYouKnowY = useTransform(
+    smoothProgress,
+    [0.06, 0.20, 0.82, 0.94],
+    [32, 0, 0, -24]
+  );
 
   /* ── Safe fallback: finds nearest loaded frame so canvas never flickers ─────── */
   const getRenderableImage = useCallback((targetIndex: number): HTMLImageElement | null => {
@@ -213,7 +226,73 @@ export default function JetsonScrollCanvas() {
         className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center bg-transparent"
         style={{ position: "sticky", top: 0 }}
       >
-        {/* Hardware-accelerated Canvas with transparent background: floats directly on continuous global Dither */}
+        {/* Narrative Floating Texts (Left and Right Negative Spaces, Behind Hardware z-0) */}
+        <div className="absolute inset-0 z-0 pointer-events-none w-full px-5 sm:px-8 md:px-10 lg:px-14 flex flex-col justify-between py-16 sm:py-0 sm:flex-row sm:items-center sm:justify-between">
+          {/* Left: DID YOU KNOW? (Shifted left-top into clear negative space) */}
+          <motion.div
+            style={{
+              opacity: didYouKnowOpacity,
+              y: didYouKnowY,
+            }}
+            className="w-full max-w-[250px] sm:max-w-[280px] md:max-w-[320px] pointer-events-none select-none sm:-translate-y-14 md:-translate-y-20"
+          >
+            <div className="space-y-3 sm:space-y-4">
+              {/* Clean text without oval pill background or glowing dot */}
+              <p className="text-xs sm:text-sm font-mono tracking-[0.25em] text-indigo-400 uppercase font-semibold">
+                DID YOU KNOW?
+              </p>
+
+              {/* Body statement */}
+              <p className="text-sm sm:text-base md:text-lg text-white/75 leading-relaxed font-sans font-normal">
+                If <span className="text-white font-semibold">8 billion people</span> did 1 calculation every second, that’s{" "}
+                <span className="text-white font-medium font-mono">8 billion operations/sec</span>.
+              </p>
+
+              <div className="h-px w-20 bg-gradient-to-r from-indigo-500/50 to-transparent" />
+
+              <p className="text-base sm:text-lg md:text-xl text-white font-medium leading-snug font-sans">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-300 via-sky-200 to-cyan-300 font-bold">
+                  Jetson Orin Nano
+                </span>{" "}
+                can deliver up to{" "}
+                <span className="font-bold font-mono tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-sky-200 to-indigo-300">
+                  67 trillion
+                </span>{" "}
+                AI operations/sec.
+              </p>
+            </div>
+          </motion.div>
+
+          {/* Right: EDGE AI REAL-TIME CALLOUT (Bottom Right Negative Space) */}
+          <motion.div
+            style={{
+              opacity: didYouKnowOpacity,
+              y: didYouKnowY,
+            }}
+            className="w-full max-w-[250px] sm:max-w-[280px] md:max-w-[320px] pointer-events-none select-none sm:translate-y-12 md:translate-y-16 self-end sm:self-auto"
+          >
+            <div className="space-y-3 sm:space-y-4">
+              <p className="text-xs sm:text-sm font-mono tracking-[0.25em] text-indigo-400 uppercase font-semibold">
+                WHY EDGE AI?
+              </p>
+
+              <p className="text-sm sm:text-base md:text-lg text-white/75 leading-relaxed font-sans font-normal">
+                When <span className="text-white font-semibold">milliseconds matter</span>, sending data to a distant server isn't always ideal.
+              </p>
+
+              <div className="h-px w-20 bg-gradient-to-r from-indigo-500/50 to-transparent" />
+
+              <p className="text-base sm:text-lg md:text-xl text-white font-medium leading-snug font-sans">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-300 via-sky-200 to-cyan-300 font-bold">
+                  Edge AI
+                </span>{" "}
+                makes the decision right where the data is created.
+              </p>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Hardware-accelerated Canvas with transparent background: floats directly in front (z-10) */}
         <canvas
           ref={canvasRef}
           className="relative z-10 w-full h-full block select-none pointer-events-none"

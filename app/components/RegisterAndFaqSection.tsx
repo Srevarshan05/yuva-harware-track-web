@@ -5,39 +5,56 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 
 // Custom SVG Icons matching Gravity UI
-const ShoppingBag = () => (
-  <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor">
-    <path fillRule="evenodd" d="M4.5 4a3.5 3.5 0 0 1 7 0v1h1.75a.75.75 0 0 1 .74.634l.8 5.6A1.75 1.75 0 0 1 13.06 13H2.94a1.75 1.75 0 0 1-1.73-1.766l.8-5.6A.75.75 0 0 1 2.75 5H4.5V4Zm1.5 1h4V4a2 2 0 1 0-4 0v1Zm-3.14 6.786a.25.25 0 0 0 .24.214h10.12a.25.25 0 0 0 .24-.214l-.686-4.786H2.174l-.686 4.786Z" clipRule="evenodd"/>
+const UsersIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+    <circle cx="9" cy="7" r="4"/>
+    <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
   </svg>
 );
 
-const Receipt = () => (
-  <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor">
-    <path fillRule="evenodd" d="M2.5 2a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v11.667a.5.5 0 0 1-.789.412L10.5 12.4l-2.211 1.679a.5.5 0 0 1-.578 0L5.5 12.4l-2.211 1.679A.5.5 0 0 1 2.5 13.667V2Zm1 .5v9.845l1.711-1.299a.5.5 0 0 1 .578 0L8 12.725l2.211-1.679a.5.5 0 0 1 .578 0L12.5 12.345V2.5h-9ZM5 5a.75.75 0 0 1 .75-.75h4.5a.75.75 0 0 1 0 1.5h-4.5A.75.75 0 0 1 5 5Zm0 3a.75.75 0 0 1 .75-.75h4.5a.75.75 0 0 1 0 1.5h-4.5A.75.75 0 0 1 5 8Z" clipRule="evenodd"/>
+const TeamIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="9" cy="7" r="4"/>
+    <path d="M17 11a3 3 0 1 0 0-6"/>
+    <path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/>
+    <path d="M17 15a4 4 0 0 1 4 4v2"/>
   </svg>
 );
 
-const CreditCard = () => (
-  <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor">
-    <path fillRule="evenodd" d="M1 4.5A1.5 1.5 0 0 1 2.5 3h11A1.5 1.5 0 0 1 15 4.5v7a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 11.5v-7Zm1.5 0a.25.25 0 0 0-.25.25V5.5h11.5v-.75a.25.25 0 0 0-.25-.25h-11Zm11.25 2.5H2.25v4.5c0 .138.112.25.25.25h11a.25.25 0 0 0 .25-.25V7ZM4 9.5a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5A.75.75 0 0 1 4 9.5Z" clipRule="evenodd"/>
+const CodeIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <polyline points="16 18 22 12 16 6"/>
+    <polyline points="8 6 2 12 8 18"/>
   </svg>
 );
 
-const Box = () => (
-  <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor">
-    <path fillRule="evenodd" d="M7.74.072a.75.75 0 0 1 .52 0l6.25 2.25a.75.75 0 0 1 .5.703v9a.75.75 0 0 1-.49.704l-6.25 2.344a.75.75 0 0 1-.52 0l-6.25-2.344A.75.75 0 0 1 1 12.025v-9a.75.75 0 0 1 .5-.703L7.74.072ZM8 1.492 2.7 3.4 8 5.308l5.3-1.908L8 1.492ZM2.5 4.67v6.655L7.25 13.11V6.38L2.5 4.67Zm6.25 8.44 4.75-1.785V4.67L8.75 6.38v6.73Z" clipRule="evenodd"/>
+const AwardIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="8" r="6"/>
+    <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/>
   </svg>
 );
 
-const PlanetEarth = () => (
-  <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor">
-    <path fillRule="evenodd" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1ZM2.5 8a5.5 5.5 0 1 1 11 0 5.5 5.5 0 0 1-11 0Zm6.25-4.24a.75.75 0 0 1 .75-.75 4.02 4.02 0 0 1 3.24 3.24.75.75 0 0 1-1.48.25 2.52 2.52 0 0 0-2.01-2.01.75.75 0 0 1-.5-.73Zm-4.99 4.25a.75.75 0 0 1 .74.74 2.52 2.52 0 0 0 2.01 2.01.75.75 0 1 1-.25 1.48 4.02 4.02 0 0 1-3.24-3.24.75.75 0 0 1 .74-.99Z" clipRule="evenodd"/>
+const CpuIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <rect width="16" height="16" x="4" y="4" rx="2"/>
+    <rect width="6" height="6" x="9" y="9" rx="1"/>
+    <path d="M15 2v2"/>
+    <path d="M15 20v2"/>
+    <path d="M2 15h2"/>
+    <path d="M2 9h2"/>
+    <path d="M20 15h2"/>
+    <path d="M20 9h2"/>
+    <path d="M9 2v2"/>
+    <path d="M9 20v2"/>
   </svg>
 );
 
-const ArrowsRotateLeft = () => (
-  <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor">
-    <path fillRule="evenodd" d="M1.25 2.5a.75.75 0 0 1 .75.75v1.892A6.5 6.5 0 1 1 1.5 8a.75.75 0 0 1 1.5 0 5 5 0 1 0 1.464-3.536l1.328 1.328a.75.75 0 0 1-.53 1.28H1.25a.75.75 0 0 1-.75-.75V2.5a.75.75 0 0 1 .75-.75Z" clipRule="evenodd"/>
+const HelpIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
   </svg>
 );
 
@@ -197,39 +214,66 @@ Accordion.Body = AccordionBody;
 
 const items = [
   {
+    icon: <UsersIcon />,
+    title: "1. Who can participate in the hackathon?",
     content:
-      "Browse our products, add items to your cart, and proceed to checkout. You'll need to provide shipping and payment information to complete your purchase.",
-    icon: <ShoppingBag />,
-    title: "How do I place an order?",
+      "Students from various institutions across India can participate in Megathon and showcase their ideas, skills, and innovative solutions.",
   },
   {
-    content:
-      "Yes, you can modify or cancel your order before it's shipped. Once your order is processed, you can't make changes.",
-    icon: <Receipt />,
-    title: "Can I modify or cancel my order?",
+    icon: <TeamIcon />,
+    title: "2. What is the minimum or maximum team size?",
+    content: "Teams can consist of 2–4 members.",
   },
   {
-    content: "We accept all major credit cards, including Visa, Mastercard, and American Express.",
-    icon: <CreditCard />,
-    title: "What payment methods do you accept?",
+    icon: <CodeIcon />,
+    title: "3. Can we use AI tools, APIs, GitHub, or open-source resources?",
+    content:
+      "Yes. Participants may use AI tools, APIs, GitHub repositories, and open-source hardware or software to build their solutions.",
   },
   {
+    icon: <AwardIcon />,
+    title: "4. What are the judging criteria?",
     content:
-      "Shipping costs vary based on your location and the size of your order. We offer free shipping for orders over $50.",
-    icon: <Box />,
-    title: "How much does shipping cost?",
+      "Projects will be evaluated based on innovation, technical implementation, functionality, impact, scalability, and overall presentation.",
   },
   {
+    icon: <CpuIcon />,
+    title: "5. Are there any restrictions on hardware components or project ideas?",
     content:
-      "Yes, we ship to most countries. Please check our shipping rates and policies for more information.",
-    icon: <PlanetEarth />,
-    title: "Do you ship internationally?",
+      "For the Hardware Track, pre-assembled prototypes are not allowed. The hardware and complete solution must be built and assembled on-site during the event.",
   },
   {
-    content:
-      "If you're not satisfied with your purchase, you can request a refund within 30 days of purchase. Please contact our customer support team for assistance.",
-    icon: <ArrowsRotateLeft />,
-    title: "How do I request a refund?",
+    icon: <HelpIcon />,
+    title: "6. Who can we contact for technical or registration issues?",
+    content: (
+      <div className="space-y-3">
+        <p>
+          For technical, registration, or other event-related assistance, please reach out to the Megathon Organizing Team through the official contact details provided on the website.
+        </p>
+        <div className="pt-1 flex flex-wrap items-center gap-2.5">
+          <a
+            href="tel:+919606729608"
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-white/80 hover:text-white text-xs font-mono font-medium transition-all shadow-sm group"
+          >
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white/60 group-hover:text-white transition-colors">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+            <span>Call: +91 96067 29608</span>
+          </a>
+          <a
+            href="https://wa.me/919606729608?text=Hello%20Megathon%20Team%2C%20I%20have%20a%20query%20regarding%20the%20Hardware%20Track."
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-white/80 hover:text-white text-xs font-mono font-medium transition-all shadow-sm group"
+          >
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" className="text-white/60 group-hover:text-white transition-colors">
+              <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm5.79 14.07c-.24.68-1.22 1.28-1.74 1.34-.48.06-1.07.1-3.23-.8-2.62-1.09-4.29-3.79-4.42-3.96-.13-.18-1.05-1.39-1.05-2.66 0-1.26.66-1.88.89-2.14.24-.26.52-.33.7-.33.17 0 .35 0 .5.01.16.01.38-.06.59.45.23.55.78 1.9.85 2.04.07.15.11.32.02.51-.09.18-.14.3-.28.46-.14.16-.3.35-.43.47-.14.13-.29.28-.12.56.17.28.76 1.25 1.63 2.03 1.12 1 2.07 1.31 2.36 1.45.29.15.46.13.63-.07.17-.2.72-.84.91-1.13.19-.29.38-.24.64-.15.26.1 1.66.78 1.94.92.29.15.48.22.55.34.07.13.07.72-.17 1.4z"/>
+            </svg>
+            <span>WhatsApp: 96067 29608</span>
+          </a>
+        </div>
+      </div>
+    ),
   },
 ];
 

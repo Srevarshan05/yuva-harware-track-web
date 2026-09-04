@@ -43,7 +43,7 @@ export default function JudgesCarouselSection() {
   ];
 
   return (
-    <section className="relative z-30 w-full px-4 sm:px-8 lg:px-12 py-20 sm:py-28 max-w-7xl mx-auto flex flex-col items-center">
+    <section className="relative z-30 w-full px-4 sm:px-8 lg:px-12 pt-6 pb-20 sm:pt-10 sm:pb-28 max-w-7xl mx-auto flex flex-col items-center">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 28 }}

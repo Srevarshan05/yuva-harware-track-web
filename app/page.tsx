@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Dither from "./components/Dither";
 import { motion } from "framer-motion";
@@ -7,8 +8,10 @@ import JetsonScrollCanvas from "./components/JetsonScrollCanvas";
 import PptScreeningSection from "./components/PptScreeningSection";
 import ScoringBreakdown from "./components/ScoringBreakdown";
 import { MacbookScrollDemo } from "./components/MacbookScrollDemo";
+import PrizesSection from "./components/PrizesSection";
 import JudgesCarouselSection from "./components/JudgesCarouselSection";
 import { RegisterAndFaqSection } from "./components/RegisterAndFaqSection";
+import DevTeamModal from "./components/DevTeamModal";
 
 const PARTNER_LOGOS = [
   { name: "SRM IST", src: "/logos/srm logo.jpeg" },
@@ -20,6 +23,23 @@ const PARTNER_LOGOS = [
 ];
 
 export default function Home() {
+  const [isDevTeamOpen, setIsDevTeamOpen] = useState(false);
+
+  useEffect(() => {
+    const checkHash = () => {
+      if (
+        typeof window !== "undefined" &&
+        (window.location.hash === "#dev-team" ||
+          window.location.hash === "#devs" ||
+          window.location.hash === "#meet-the-dev-team")
+      ) {
+        setIsDevTeamOpen(true);
+      }
+    };
+    checkHash();
+    window.addEventListener("hashchange", checkHash);
+    return () => window.removeEventListener("hashchange", checkHash);
+  }, []);
   return (
     <main className="relative w-full min-h-screen bg-black text-white">
       {/* ── Background Dither Animation ───────────────────────────────────── */}
@@ -48,24 +68,25 @@ export default function Home() {
         }}
       />
 
-      {/* ── Static Light-Theme White Logo Navbar Strip ────────────────────── */}
-      <header className="sticky top-0 z-40 w-full bg-white shadow-md border-b border-neutral-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 sm:py-3 flex items-center justify-center sm:justify-around gap-3 sm:gap-4 md:gap-6 flex-wrap lg:flex-nowrap">
+      {/* ── Static Light-Theme White Logo Navbar Strip (Scrolls away with page) ── */}
+      <header className="relative z-40 w-full bg-white shadow-md border-b border-neutral-200">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-2.5 sm:py-3 flex items-center justify-around sm:justify-around gap-2 sm:gap-4 md:gap-6 flex-nowrap md:flex-wrap lg:flex-nowrap overflow-x-auto scrollbar-none">
           {PARTNER_LOGOS.map((logo) => (
             <motion.div
               key={logo.name}
               whileHover={{ scale: 1.06 }}
               transition={{ type: "spring", stiffness: 400, damping: 20 }}
-              className="flex items-center gap-2 sm:gap-2.5 cursor-pointer group"
+              className="flex items-center gap-2 sm:gap-2.5 cursor-pointer group shrink-0"
+              title={logo.name}
             >
-              <div className="relative h-7 sm:h-8 md:h-9 w-auto max-w-[130px] flex items-center justify-center">
+              <div className="relative h-7 sm:h-8 md:h-9 w-auto max-w-[110px] sm:max-w-[130px] flex items-center justify-center">
                 <img
                   src={logo.src}
                   alt={logo.name}
                   className="h-full w-auto object-contain max-h-7 sm:max-h-8 md:max-h-9 rounded-sm drop-shadow-sm group-hover:drop-shadow transition-all"
                 />
               </div>
-              <span className="text-xs sm:text-sm font-bold tracking-wider text-neutral-800 uppercase font-sans whitespace-nowrap group-hover:text-neutral-950 transition-colors">
+              <span className="hidden md:inline text-xs sm:text-sm font-bold tracking-wider text-neutral-800 uppercase font-sans whitespace-nowrap group-hover:text-neutral-950 transition-colors">
                 {logo.name}
               </span>
             </motion.div>
@@ -76,9 +97,12 @@ export default function Home() {
       {/* ══════════════════════════════════════════════════════════════════════
           PAGE 1: MAIN HERO SECTION (FULL SCREEN)
       ══════════════════════════════════════════════════════════════════════ */}
+      {/* ══════════════════════════════════════════════════════════════════════
+          PAGE 1: MAIN HERO SECTION (FULL SCREEN)
+      ══════════════════════════════════════════════════════════════════════ */}
       <section className="relative z-30 flex flex-col items-center justify-center text-center px-6 max-w-5xl mx-auto min-h-[calc(100vh-60px)] py-12">
         {/* Large Central YUVA Logo with Ambient Glow and Interactive Hover Effect */}
-        <div className="relative mb-6 flex items-center justify-center">
+        <div className="relative mb-0 flex items-center justify-center">
           {/* Ambient Glow Aura */}
           <div
             className="absolute -inset-6 rounded-full opacity-60 blur-3xl pointer-events-none animate-pulse"
@@ -104,37 +128,47 @@ export default function Home() {
             <Image
               src="/logos/yuva-main.png"
               alt="YUVA Main Logo"
-              width={300}
-              height={300}
+              width={280}
+              height={280}
               priority
-              className="w-44 h-44 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 object-contain transition-all duration-300 drop-shadow-[0_0_45px_rgba(255,255,255,0.45)] hover:drop-shadow-[0_0_65px_rgba(255,255,255,0.75)] mx-auto"
+              className="w-36 h-36 sm:w-48 sm:h-48 md:w-56 md:h-56 lg:w-64 lg:h-64 object-contain transition-all duration-300 drop-shadow-[0_0_45px_rgba(255,255,255,0.45)] hover:drop-shadow-[0_0_65px_rgba(255,255,255,0.75)] mx-auto"
             />
           </motion.div>
         </div>
 
-        {/* Organizer Tagline */}
+        {/* Headline: MEGATHON 2026 */}
+        <motion.h1
+          initial={{ opacity: 0, y: 22 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.08, ease: "easeOut" }}
+          className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight leading-none -mt-4 sm:-mt-6 md:-mt-8 lg:-mt-10 mb-3 sm:mb-4 text-white uppercase select-none font-sans"
+          style={{
+            textShadow:
+              "0 0 50px rgba(99,102,241,0.35), 0 0 100px rgba(99,102,241,0.18)",
+          }}
+        >
+          MEGATHON 2026
+        </motion.h1>
+
+        {/* Organizer Tagline (Bolded & larger) */}
         <motion.p
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.05, ease: "easeOut" }}
-          className="text-sm md:text-base font-mono tracking-[0.25em] uppercase text-indigo-300 mb-3"
+          transition={{ duration: 0.6, delay: 0.14, ease: "easeOut" }}
+          className="text-sm sm:text-base md:text-lg font-mono tracking-[0.26em] uppercase text-white/90 font-bold mb-3 sm:mb-4"
         >
-          IEEE SB SRM IST Trichy Organizes
+          IEEE SB SRM IST TRICHY ORGANIZES
         </motion.p>
 
-        {/* Headline */}
-        <motion.h1
-          initial={{ opacity: 0, y: 24 }}
+        {/* Sub-headline: Hardware Track (Initial Caps) */}
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.1, ease: "easeOut" }}
-          className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight leading-none mb-6 text-white uppercase select-none font-sans"
-          style={{
-            textShadow:
-              "0 0 50px rgba(99,102,241,0.3), 0 0 100px rgba(99,102,241,0.15)",
-          }}
+          transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
+          className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-indigo-200 to-cyan-300 mb-6 font-sans select-none"
         >
-          Hardware Hackathon
-        </motion.h1>
+          Hardware Track
+        </motion.h2>
 
         {/* Quote */}
         <motion.p
@@ -148,30 +182,36 @@ export default function Home() {
         </motion.p>
       </section>
 
-      {/* ── Scroll-linked Jetson Animation (No Text) ───────────────────────── */}
-      <JetsonScrollCanvas />
-
       {/* ═══════════════════════════════════════════════════════════════════════
-          Wrapper — smooth blended dark backdrop across all post-hero sections.
+          Wrapper — smooth blended dark translucent backdrop starting from
+          the Jetson animation section all the way till the end of the page.
           Feathers seamlessly from the hero so there is no hard cutoff line,
           and lets the animated dither stay subtly visible throughout.
       ════════════════════════════════════════════════════════════════════════ */}
-      <div className="relative z-20 w-full">
-
-
-      {/* ══════════════════════════════════════════════════════════════════════
-          PAGE 2: PPT SCREENING INSTRUCTIONS, SCORING & JUDGES
-      ══════════════════════════════════════════════════════════════════════ */}
-      <section
-        id="tracks-section"
-        className="relative w-full flex flex-col items-center justify-center overflow-visible pointer-events-auto"
+      <div
+        className="relative z-20 w-full"
+        style={{
+          background:
+            "linear-gradient(to bottom, rgba(5,5,5,0) 0%, rgba(5,5,5,0.3) 150px, rgba(5,5,5,0.68) 350px, rgba(5,5,5,0.68) 100%)",
+        }}
       >
-        <PptScreeningSection />
-        <ScoringBreakdown />
-        <MacbookScrollDemo />
-        <JudgesCarouselSection />
-        <RegisterAndFaqSection />
-      </section>
+        {/* ── Scroll-linked Jetson Animation (No Text) ───────────────────────── */}
+        <JetsonScrollCanvas />
+
+        {/* ══════════════════════════════════════════════════════════════════════
+            PAGE 2: PPT SCREENING INSTRUCTIONS, SCORING & JUDGES
+        ══════════════════════════════════════════════════════════════════════ */}
+        <section
+          id="tracks-section"
+          className="relative w-full flex flex-col items-center justify-center overflow-visible pointer-events-auto"
+        >
+          <PptScreeningSection />
+          <ScoringBreakdown />
+          <MacbookScrollDemo />
+          <PrizesSection />
+          <JudgesCarouselSection />
+          <RegisterAndFaqSection />
+        </section>
 
       {/* ── Rich Footer ──────────────────────────────────────────────────────── */}
       <footer
@@ -238,6 +278,8 @@ export default function Home() {
                 { label: "Home", href: "#" },
                 { label: "Initial Screening", href: "#tracks-section" },
                 { label: "Evaluation Criteria", href: "#tracks-section" },
+                { label: "What's Next", href: "#tracks-section" },
+                { label: "Prizes & Rewards", href: "#prizes-section" },
                 { label: "Judges Panel", href: "#tracks-section" },
                 { label: "FAQ", href: "#tracks-section" },
               ].map(({ label, href }) => (
@@ -245,6 +287,26 @@ export default function Home() {
                   {label}
                 </a>
               ))}
+
+              {/* Highlighted Meet the Dev Team Option (Quite Bigger) */}
+              <button
+                type="button"
+                onClick={() => setIsDevTeamOpen(true)}
+                className="group mt-3.5 inline-flex items-center justify-between gap-3.5 px-5 py-2.5 sm:px-6 sm:py-3 rounded-xl bg-white/[0.08] hover:bg-white/[0.14] border border-white/20 hover:border-white/40 text-white text-sm sm:text-base font-semibold tracking-wide transition-all shadow-lg hover:shadow-white/5 hover:scale-[1.03] active:scale-95 text-left w-fit cursor-pointer"
+              >
+                <span className="flex items-center gap-2.5">
+                  <span className="relative flex h-2.5 w-2.5">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white/50 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-white"></span>
+                  </span>
+                  <span className="text-white/95 group-hover:text-white transition-colors font-medium">
+                    Meet the Dev Team
+                  </span>
+                </span>
+                <span className="text-white/50 group-hover:text-white text-sm font-mono group-hover:translate-x-1 transition-all">
+                  →
+                </span>
+              </button>
             </div>
 
             {/* Organised By column */}
@@ -270,14 +332,29 @@ export default function Home() {
             <span className="text-[11px] font-mono text-white/25 tracking-widest uppercase">
               © 2026 IEEE SB · SRM IST Trichy — YUVA Megathon · Hardware Track
             </span>
-            <span className="text-[11px] font-mono text-white/20 tracking-widest uppercase">
-              All rights reserved.
-            </span>
+            <div className="flex items-center gap-4">
+              <button
+                type="button"
+                onClick={() => setIsDevTeamOpen(true)}
+                className="text-[11px] font-mono text-white/40 hover:text-white tracking-wider uppercase underline underline-offset-4 decoration-white/20 hover:decoration-white/50 transition-colors cursor-pointer"
+              >
+                Meet the Dev Team
+              </button>
+              <span className="text-[11px] font-mono text-white/20 tracking-widest uppercase">
+                All rights reserved.
+              </span>
+            </div>
           </div>
         </div>
       </footer>
 
       </div>{/* end solid dark bg wrapper */}
+
+      {/* ── Meet the Dev Team Interactive Modal (Opens inside the website) ── */}
+      <DevTeamModal
+        isOpen={isDevTeamOpen}
+        onClose={() => setIsDevTeamOpen(false)}
+      />
     </main>
   );
 }
