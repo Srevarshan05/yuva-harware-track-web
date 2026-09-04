@@ -57,19 +57,19 @@ const Folder: React.FC<FolderProps> = ({
       if (typeof window === "undefined") return;
       const w = window.innerWidth;
       if (w < 420) {
-        // Small mobile (320px - 420px): keeps fanning span within mobile viewport
+        // Small mobile: keeps fanning span within mobile viewport
         setScale(Math.min(size, 1.15));
       } else if (w < 640) {
-        // Large mobile (420px - 640px)
+        // Large mobile
         setScale(Math.min(size, 1.35));
       } else if (w < 768) {
-        // Small tablet (640px - 768px)
+        // Small tablet
         setScale(Math.min(size, 1.6));
       } else if (w < 1024) {
-        // Tablet (768px - 1024px)
+        // Tablet
         setScale(Math.min(size, 1.85));
       } else {
-        // Desktop (>= 1024px)
+        // Desktop: full scale
         setScale(size);
       }
     };
@@ -122,14 +122,14 @@ const Folder: React.FC<FolderProps> = ({
     transformOrigin: "center center",
   };
 
-  // Open transforms for each paper positioned comfortably above the folder pocket
+  // Open transforms for each paper positioned comfortably without colliding with content above
   // Paper 0: Left (2nd Place)
   // Paper 1: Right (3rd Place)
   // Paper 2: Center Top elevated (1st Place)
   const getOpenTransform = (index: number) => {
-    if (index === 0) return "translate(-120%, -46%) rotate(-12deg)";
-    if (index === 1) return "translate(20%, -46%) rotate(12deg)";
-    if (index === 2) return "translate(-50%, -66%) rotate(0deg)";
+    if (index === 0) return "translate(-118%, -38%) rotate(-10deg)";
+    if (index === 1) return "translate(18%, -38%) rotate(10deg)";
+    if (index === 2) return "translate(-50%, -52%) rotate(0deg)";
     return "";
   };
 

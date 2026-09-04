@@ -97,13 +97,13 @@ export default function PrizesSection() {
         }}
       />
 
-      {/* Header with generous bottom margin to ensure fanning cards never collide with text */}
+      {/* Header with ample PC bottom margin so open cards never collide with text */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: false, amount: 0.2 }}
         transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
-        className="w-full flex flex-col items-center text-center gap-2.5 mb-16 sm:mb-24 max-w-3xl mx-auto"
+        className="w-full flex flex-col items-center text-center gap-2.5 mb-14 sm:mb-32 md:mb-40 lg:mb-44 max-w-3xl mx-auto"
       >
         <p className="text-[10px] sm:text-xs font-mono uppercase tracking-[0.28em] text-white/60">
           REWARDS & RECOGNITION · YUVA MEGATHON
