@@ -26,21 +26,24 @@ const DEV_MEMBERS: TeamMember[] = [
     title: "Srevarshan",
     subtitle: "4th Year AIML",
     image: "/team/srevarshan-dev.png",
-    className: "absolute top-[12%] sm:top-[16%] left-[5%] sm:left-[10%] md:left-[14%] rotate-[-6deg]",
+    className:
+      "absolute top-[4%] sm:top-[16%] left-[6%] sm:left-[10%] md:left-[14%] rotate-[-4deg] sm:rotate-[-6deg]",
     imgPosition: "object-top",
   },
   {
     title: "Krishwin",
     subtitle: "3rd Year AIML",
     image: "/team/krishwin.jpeg",
-    className: "absolute top-[28%] sm:top-[32%] left-[28%] sm:left-[35%] md:left-[41%] rotate-[6deg]",
+    className:
+      "absolute top-[34%] sm:top-[32%] left-[18%] xs:left-[24%] sm:left-[35%] md:left-[41%] rotate-[4deg] sm:rotate-[6deg]",
     imgPosition: "object-center",
   },
   {
     title: "Karthik KS",
     subtitle: "4th Year AIML",
     image: "/team/karthik-ks.jpeg",
-    className: "absolute top-[10%] sm:top-[14%] right-[5%] sm:right-[10%] md:right-[14%] rotate-[-5deg]",
+    className:
+      "absolute top-[64%] sm:top-[14%] left-[8%] sm:left-auto sm:right-[10%] md:right-[14%] rotate-[-3deg] sm:rotate-[-5deg]",
     imgPosition: "object-top",
   },
 ];
@@ -83,10 +86,10 @@ export default function DevTeamModal({ isOpen, onClose }: DevTeamModalProps) {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.94, y: 15 }}
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="relative w-full max-w-6xl h-[88vh] max-h-[850px] min-h-[560px] my-auto bg-black/75 border border-white/10 rounded-3xl shadow-[0_0_80px_rgba(0,0,0,0.9)] overflow-hidden z-10 flex flex-col"
+            className="relative w-full max-w-6xl h-[92vh] max-h-[850px] min-h-[460px] sm:min-h-[560px] my-auto bg-black/75 border border-white/10 rounded-2xl sm:rounded-3xl shadow-[0_0_80px_rgba(0,0,0,0.9)] overflow-hidden z-10 flex flex-col"
           >
             {/* ── Outer Card Background: Black Blended Dither Animation ── */}
-            <div className="absolute inset-0 w-full h-full pointer-events-none z-0 overflow-hidden rounded-3xl">
+            <div className="absolute inset-0 w-full h-full pointer-events-none z-0 overflow-hidden rounded-2xl sm:rounded-3xl">
               <Dither
                 waveColor={[0.45, 0.45, 0.45]}
                 backgroundColor={[0, 0, 0]}
@@ -110,7 +113,7 @@ export default function DevTeamModal({ isOpen, onClose }: DevTeamModalProps) {
             </div>
 
             {/* Top Bar Header inside modal */}
-            <div className="relative z-30 flex items-center justify-between px-6 py-4 border-b border-white/[0.08] bg-black/40 backdrop-blur-md">
+            <div className="relative z-30 flex items-center justify-between px-4 sm:px-6 py-3.5 sm:py-4 border-b border-white/[0.08] bg-black/40 backdrop-blur-md">
               <div className="flex items-center">
                 <span className="text-sm sm:text-base font-sans font-bold uppercase tracking-wider text-white/90 select-none">
                   Dev Team
@@ -143,29 +146,32 @@ export default function DevTeamModal({ isOpen, onClose }: DevTeamModalProps) {
             <DraggableCardContainer className="relative flex-1 w-full h-full items-center justify-center overflow-hidden select-none z-10">
               {/* Center Background Typography (Webpage Font & Styling) */}
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-2xl text-center pointer-events-none select-none z-0 px-4">
-                <h2 className="text-5xl sm:text-7xl md:text-8xl font-sans font-black text-white/15 uppercase tracking-tight leading-none select-none">
+                <h2 className="text-4xl xs:text-5xl sm:text-7xl md:text-8xl font-sans font-black text-white/15 uppercase tracking-tight leading-none select-none">
                   Dev Team
                 </h2>
-                <p className="mt-4 text-xs sm:text-sm font-sans font-semibold text-white/30 tracking-[0.25em] uppercase select-none">
-                  ✦ Click & drag any card around ✦
+                <p className="mt-2 sm:mt-4 text-[10px] sm:text-sm font-sans font-semibold text-white/30 tracking-[0.2em] sm:tracking-[0.25em] uppercase select-none">
+                  ✦ Drag cards around ✦
                 </p>
               </div>
 
               {/* 3 Interactive Draggable Cards */}
               {DEV_MEMBERS.map((member) => (
-                <DraggableCardBody key={member.title} className={member.className}>
+                <DraggableCardBody
+                  key={member.title}
+                  className={member.className}
+                >
                   <img
                     src={member.image}
                     alt={member.title}
-                    className={`pointer-events-none relative z-10 h-56 w-56 sm:h-64 sm:w-64 md:h-72 md:w-72 object-cover ${
+                    className={`pointer-events-none relative z-10 h-36 w-36 xs:h-44 xs:w-44 sm:h-60 sm:w-60 md:h-72 md:w-72 object-cover ${
                       member.imgPosition || "object-top"
                     } rounded-xl shadow-inner`}
                   />
-                  <div className="mt-3 text-center">
-                    <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white tracking-tight">
+                  <div className="mt-2 sm:mt-3 text-center">
+                    <h3 className="text-sm sm:text-xl md:text-2xl font-bold text-white tracking-tight">
                       {member.title}
                     </h3>
-                    <p className="mt-0.5 text-xs sm:text-sm font-mono text-neutral-400">
+                    <p className="mt-0.5 text-[10px] sm:text-sm font-mono text-neutral-400">
                       {member.subtitle}
                     </p>
                   </div>

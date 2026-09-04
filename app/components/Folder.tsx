@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 interface FolderProps {
   color?: string;
@@ -46,9 +46,38 @@ const Folder: React.FC<FolderProps> = ({
   }
 
   const [open, setOpen] = useState(false);
+  const [scale, setScale] = useState(size);
   const [paperOffsets, setPaperOffsets] = useState<{ x: number; y: number }[]>(
     Array.from({ length: maxItems }, () => ({ x: 0, y: 0 }))
   );
+
+  // Dynamic responsive scale calculation for mobile, tablet, and desktop
+  useEffect(() => {
+    const updateScale = () => {
+      if (typeof window === "undefined") return;
+      const w = window.innerWidth;
+      if (w < 420) {
+        // Small mobile (320px - 420px): keeps fanning span within mobile viewport
+        setScale(Math.min(size, 1.15));
+      } else if (w < 640) {
+        // Large mobile (420px - 640px)
+        setScale(Math.min(size, 1.35));
+      } else if (w < 768) {
+        // Small tablet (640px - 768px)
+        setScale(Math.min(size, 1.6));
+      } else if (w < 1024) {
+        // Tablet (768px - 1024px)
+        setScale(Math.min(size, 1.85));
+      } else {
+        // Desktop (>= 1024px)
+        setScale(size);
+      }
+    };
+
+    updateScale();
+    window.addEventListener("resize", updateScale);
+    return () => window.removeEventListener("resize", updateScale);
+  }, [size]);
 
   const folderBackColor = darkenColor(color, 0.25);
   const paperBg = "#111317";
@@ -89,7 +118,7 @@ const Folder: React.FC<FolderProps> = ({
   };
 
   const scaleStyle: React.CSSProperties = {
-    transform: `scale(${size})`,
+    transform: `scale(${scale})`,
     transformOrigin: "center center",
   };
 
@@ -98,9 +127,9 @@ const Folder: React.FC<FolderProps> = ({
   // Paper 1: Right (3rd Place)
   // Paper 2: Center Top elevated (1st Place)
   const getOpenTransform = (index: number) => {
-    if (index === 0) return "translate(-122%, -48%) rotate(-12deg)";
-    if (index === 1) return "translate(22%, -48%) rotate(12deg)";
-    if (index === 2) return "translate(-50%, -68%) rotate(0deg)";
+    if (index === 0) return "translate(-120%, -46%) rotate(-12deg)";
+    if (index === 1) return "translate(20%, -46%) rotate(12deg)";
+    if (index === 2) return "translate(-50%, -66%) rotate(0deg)";
     return "";
   };
 
